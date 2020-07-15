@@ -47,10 +47,10 @@ class BlockChain:
 
 def test_block_created():
     blockchain = BlockChain()
-    blockchain.add_block("hey")
-    blockchain.add_block("ho")
+    blockchain.add_block("hye")
+    blockchain.add_block("hello")
     blockchain.add_block("lets")
-    blockchain.add_block("go")
+    blockchain.add_block("code")
     blockchain.print_blockchain()
 
 
@@ -70,19 +70,19 @@ def _check_hash(hash_previous, hash_after):
 
 def test_hash_matching():
     blockchain = BlockChain()
-    blockchain.add_block("hey")
-    blockchain.add_block("ho")
+    blockchain.add_block("hye")
+    blockchain.add_block("hello")
     blockchain.add_block("lets")
-    blockchain.add_block("go")
+    blockchain.add_block("code")
     print(_check_hash(blockchain.tail.previous_hash, blockchain.tail))
 
 
 def test_created_before():
     blockchain = BlockChain()
-    start = blockchain.add_block("hey")
-    blockchain.add_block("ho")
+    start = blockchain.add_block("hye")
+    blockchain.add_block("hello")
     blockchain.add_block("lets")
-    blockchain.add_block("go")
+    blockchain.add_block("code")
 
     current = blockchain.tail
     while current.previous_hash is not None:
