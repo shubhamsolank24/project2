@@ -1,9 +1,9 @@
-"Design a a data structure for a Least Recently Used (LRU) cache with O(1) operations.
+'''Design a a data structure for a Least Recently Used (LRU) cache with O(1) operations.
 It holds most recently used items while staying memory constrained. Specifically, the LRU cache removes recently used items when low on memory or capacity.
 It to support two operations, get and set
 The get operation should retrieve the value if the key exists, otherwise it should return -1 if it does not exist.
 The set operation will insert the value if the key is not present. If the cache is full then it should remove the oldest item before inserting a new item.
-"
+'''
 from collections import deque
 
 class LRU_Cache(object):
