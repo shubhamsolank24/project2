@@ -2,13 +2,13 @@ import sys
 global huff
 
 def huffman_encoding(data):
-    global huff
-    huff = {}
+    global huffman
+    huffman = {}
     for char in data:
-        huff[char] = huff.get(char, 0) + 1
+        huffman[char] = huff.get(char, 0) + 1
     tree = {}
     temp = '1'
-    for num in sorted(huff.items(), key = lambda x: x[1]):
+    for num in sorted(huffman.items(), key = lambda x: x[1]):
         tree[num[0]] = temp
         temp = '0' + temp
 
@@ -18,9 +18,9 @@ def huffman_encoding(data):
     return encode, tree
 
 def huffman_decoding(data,tree):
-    huff = {}
+    huffman = {}
     for char in tree:
-        huff[tree[char]] = char
+        huffman[tree[char]] = char
     #print(huff)
     temp = ''
     decode = ''
