@@ -5,7 +5,7 @@ def huffman_encoding(data):
     global huffman
     huffman = {}
     for char in data:
-        huffman[char] = huff.get(char, 0) + 1
+        huffman[char] = huffman.get(char, 0) + 1
     tree = {}
     temp = '1'
     for num in sorted(huffman.items(), key = lambda x: x[1]):
@@ -21,7 +21,7 @@ def huffman_decoding(data,tree):
     huffman = {}
     for char in tree:
         huffman[tree[char]] = char
-    #print(huff)
+    #print(huffman)
     temp = ''
     decode = ''
     for d in data:
