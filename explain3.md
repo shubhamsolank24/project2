@@ -1,5 +1,6 @@
-I have written a recursive function for this question which takes input the suffix, path and the list of required files which are found till now. Each time I find a file ending with .c will be appended to this file.
+I have implemented huffman encoding technique here with following steps:
 
-Run time complexity: O(depth X Avg. number of directoryin each level)
+i) Calculate the occurences of each characters in a string.
+ii) Character with highest occurence is encoded with minimum code length ie 1 then next Character as 01 and then 001 and so on.
 
-Space complexity: O(depth)
+Time complexity: O(n) Space complexity: O(distinct_characters)
