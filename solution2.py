@@ -1,5 +1,5 @@
 import os
-def find_files(suffix, path, files=[]):
+def find_files( suffix, path, files=[] ):
     """
     Find all files beneath path with file name suffix.
     Note that a path may contain further subdirectories
