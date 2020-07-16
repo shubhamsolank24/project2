@@ -1,35 +1,200 @@
+from collections import OrderedDict
 
-from collections import deque
+class lru_cache(object):
+    def __init__(self, capacity = 5):
+        self.capacity = capacity
+       
+        # removed per reviewer's comments for additional test
+        # default to 5 if zero or not an integer
+       # self.capacity = capacity if capacity is not 0 and isinstance(capacity, int) else 5
+        self.cache = OrderedDict()
 
-class LRU_Cache(object):
-
-    def __init__(self, capacity):
-       # Initialize class variables
-       self.cache_capacity = capacity
-       self.cache_value = {}
-       self.cache_order = deque()
+    @property
+    def get_capacity(self):
+        return self.capacity
 
     def get(self, key):
-        # Retrieve item from provided key. Return -1 if non existant.
-        if key is None:
+        if key in self.cache.keys():
+            """
+            In Python 3 cache.keys() is O(1). In 2 it is O(n).
+            pop removes item and then re-inserting it moves it to the back
+            which makes it the most recently used/accessed
+            """
+            value = self.cache.pop(key)
+            self.cache[key] = value
+            return value
+        else:
             return -1
 
-        return self.cache_value.get(key, -1)
+    def set(self, key, value):
+        try:
+            if self.get_capacity <= 0:
+                msg  = "\nError: Cannot have cache capacity of zero or less."
+                msg += "\nCache capacity is " + str(self.get_capacity)
+                msg += "\nCannot perform set operation on 0 or less sized cache!\n"
+                raise ValueError(msg)
+        except ValueError as ve:
+            print(ve)
+            return False
+        if key in self.cache:
+            # reinsert the same key
+            # why? could have a different value so pop the key, discard it
+            self.cache.pop(key)
+            self.cache[key] = value
+            return True
+        else:
+            if len(self.cache) >= self.capacity:
+                """
+                Per documentaion: returns and removes a (key, value) pair.
+                Pairs are returned in LIFO order if last is true (default)
+                or FIFO order if false
+                """
+                self.cache.popitem(last = False)
+            self.cache[key] = value
+        return True
+
+
+print("\ncreate new cache to hold maximum of five entries...\n")
+our_cache = lru_cache(5)
+print("Capacity of cache is ", our_cache.capacity)
+
+print("setting key, value pairs: (1,1), (2,2), (3,3) & (4,4)")
+our_cache.set(1, 1);
+our_cache.set(2, 2);
+our_cache.set(3, 3);
+our_cache.set(4, 4);
+
+print("\nTest #1...")
+print("Returns 1 - our_cache.get(1):", our_cache.get(1))
+print("Returns 2 - our_cache.get(2):", our_cache.get(2))
+print("Returns -1 - our_cache.get(9):", our_cache.get(9))
+print("  (because 9 is not present in the cache)")
+
+print("\nSetting key, value pairs: (5, five), (6, six)")
+our_cache.set(5, "five")
+our_cache.set(6, "six")
+
+# returns -1 because the cache has reached it's capacity and 3 was the least
+# recently used entry
+print("\nour_cache.get(3):", our_cache.get(3))
+print("Returned -1 because the cache reached it's capacity and 3 was the least recently used entry")
+print("\nReturns 'five' - our_cache.get(5):", our_cache.get(5))
+print("Returns 'six' - our_cache.get(6):", our_cache.get(6))
+
+# create new cache with different size
+our_new_cache = lru_cache(2)
+our_new_cache.set(1, 1)
+our_new_cache.set(2, 2)
+our_new_cache.set(1, 10)
+print("\nTest #2...")
+print("our_new_cache (should return 10):", our_new_cache.get(1))
+print("our_new_cache (should return 2):", our_new_cache.get(2))
+
+# create another cache with size 0
+another_new_cache = lru_cache(-100)
+print("\nTest #3...")
+print("Capacity of cache is ", another_new_cache.capacity)
+
+# should raise an exception
+another_new_cache.set(1, 1)
+
+print("another_new_cache (should return -1):", another_new_cache.get(1))from collections import OrderedDict
+
+class lru_cache(object):
+    def __init__(self, capacity = 5):
+        self.capacity = capacity
+         # removed per reviewer's comments for additional test
+        # default to 5 if zero or not an integer
+        # self.capacity = capacity if capacity is not 0 and isinstance(capacity, int) else 5
+        self.cache = OrderedDict()
+
+    @property
+    def get_capacity(self):
+        return self.capacity
+
+    def get(self, key):
+        if key in self.cache.keys():
+            """
+            In Python 3 cache.keys() is O(1). In 2 it is O(n).
+            pop removes item and then re-inserting it moves it to the back
+            which makes it the most recently used/accessed
+            """
+            value = self.cache.pop(key)
+            self.cache[key] = value
+            return value
+        else:
+            return -1
 
     def set(self, key, value):
-        # Set the value if the key is not present in the cache. If the cache is at capacity remove the oldest item.
-        if len(self.cache_order) >= self.cache_capacity:
-            del self.cache_value[self.cache_order.popleft()]
-        self.cache_order.append(key)
-        self.cache_value[key] = value
-'''
-For testing'''
-our_cache = LRU_Cache(2)
+        try:
+            if self.get_capacity <= 0:
+                msg  = "\nError: Cannot have cache capacity of zero or less."
+                msg += "\nCache capacity is " + str(self.get_capacity)
+                msg += "\nCannot perform set operation on 0 or less sized cache!\n"
+                raise ValueError(msg)
+        except ValueError as ve:
+            print(ve)
+            return False
+        if key in self.cache:
+            # reinsert the same key
+            # why? could have a different value so pop the key, discard it
+            self.cache.pop(key)
+            self.cache[key] = value
+            return True
+        else:
+            if len(self.cache) >= self.capacity:
+                """
+                Per documentaion: returns and removes a (key, value) pair.
+                Pairs are returned in LIFO order if last is true (default)
+                or FIFO order if false
+                """
+                self.cache.popitem(last = False)
+            self.cache[key] = value
+        return True
 
-our_cache.set(1, 1)
-our_cache.set(2, 2)
-our_cache.set(3, 2)
-print(our_cache.cache_value)
-print(our_cache.get(1))       # returns -1
-print(our_cache.get(2))       # returns 2
-print(our_cache.get(None))    # return -1
+
+print("\ncreate new cache to hold maximum five entries...\n")
+our_cache = lru_cache(5)
+print("Capacity of cache is ", our_cache.capacity)
+
+print("setting key, value pairs: (1,1), (2,2), (3,3) & (4,4)")
+our_cache.set(1, 1);
+our_cache.set(2, 2);
+our_cache.set(3, 3);
+our_cache.set(4, 4);
+
+print("\nTest #1...")
+print("Returns 1 - our_cache.get(1):", our_cache.get(1))
+print("Returns 2 - our_cache.get(2):", our_cache.get(2))
+print("Returns -1 - our_cache.get(9):", our_cache.get(9))
+print("  (because 9 is not present in the cache)")
+
+print("\nSetting key, value pairs: (5, five), (6, six)")
+our_cache.set(5, "five")
+our_cache.set(6, "six")
+
+# returns -1 because the cache reached it's capacity and 3 was the least
+# recently used entry
+print("\nour_cache.get(3):", our_cache.get(3))
+print("Returned -1 because the cache reached it's capacity and 3 was the least recently used entry")
+print("\nReturns 'five' - our_cache.get(5):", our_cache.get(5))
+print("Returns 'six' - our_cache.get(6):", our_cache.get(6))
+
+# create new cache with different size
+our_new_cache = lru_cache(2)
+our_new_cache.set(1, 1)
+our_new_cache.set(2, 2)
+our_new_cache.set(1, 10)
+print("\nTest #2...")
+print("our_new_cache (should return 10):", our_new_cache.get(1))
+print("our_new_cache (should return 2):", our_new_cache.get(2))
+
+# create another cache with size 0
+another_new_cache = lru_cache(-100)
+print("\nTest #3...")
+print("Capacity of cache is ", another_new_cache.capacity)
+
+# should raise an exception
+another_new_cache.set(1, 1)
+
+print("another_new_cache (should return -1):", another_new_cache.get(1))
