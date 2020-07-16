@@ -69,7 +69,7 @@ def test_user_doesnt_exist():
     sub_child.add_user(sub_child_user)
 
     child.add_group(sub_child)
-    paren.add_group(child)
+    parent.add_group(child)
 
     print(parent.is_user_in_group(child, "none existing"))
 
