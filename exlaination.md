@@ -1,9 +1,12 @@
 Problem 1 explaination:
-In the first task of this project i have to make a data structure for a Least Recently Used (LRU) cache with O(1) operations. so  have used dictionary in python which has constant time access of values with particular key. To keep track of the order of the values I have created a queue with the help of python deque, which allows constant time popleft().
+In the first task of this project i have to make a data structure for a Least Recently Used (LRU) cache
+Uses Pythons's OrderedDict as cache, which keeps track of the order that
+entries are inserted. Deleting an entry and reinserting it will move it to the end.
+If the value of a key is changed, the key position does not change. Ordered Dictionaries are implement as hash tables. Hash tables should provide average O(1) for search, insertion and deletion. 
 
 Get Time complexity: O(1) 
 Set Time complexity: O(1)
-
+ 
 Space complexity of the LRU will be : O(capacity)
 
 
