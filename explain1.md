@@ -28,3 +28,14 @@ Problem 4 explaination:
 Active Directory This problem in this task is being resolved using recurssion, starting from the root, checking if user is present for each group visited, if the user matches then it returns.
 
 The worst case is if the user is not present on any group and the group structure has the same subgroups on each, taking O(n!) worst case, since a stack if used for recurssion the space complexity would be O(n)
+
+
+Problem 5 explaination:
+Blockchain A linked list is used in htis task since is easier to keep track of previous item on the blockchain, retrieval for the last block is O(1) and the first one O(n).
+
+Hash Function: the hash function is calculated ciphering the data with sha256 using utf-8 encode, then with the encoded data as hex string we add another encode that is the timestamp ciphering the data twice.
+
+Hash function and inserting a block are O(1), printing the whole blockchain is O(n).
+
+
+Pronlem 6 explaination:
