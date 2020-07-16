@@ -33,7 +33,7 @@ class Group(object):
 
 
 def test_user_in_sub_child():
-    parent = Group("parent")
+    paren = Group("paren")
     child = Group("child")
     sub_child = Group("subchild")
 
@@ -43,11 +43,11 @@ def test_user_in_sub_child():
     child.add_group(sub_child)
     parent.add_group(child)
 
-    print(parent.is_user_in_group(parent, sub_child_user))
+    print(paren.is_user_in_group(paren, sub_child_user))
 
 
 def test_user_in_child():
-    parent = Group("parent")
+    paren = Group("parent")
     child = Group("child")
     sub_child = Group("subchild")
 
@@ -55,13 +55,13 @@ def test_user_in_child():
     sub_child.add_user(sub_child_user)
 
     child.add_group(sub_child)
-    parent.add_group(child)
+    paren.add_group(child)
 
-    print(parent.is_user_in_group(child, sub_child_user))
+    print(paren.is_user_in_group(child, sub_child_user))
 
 
 def test_user_doesnt_exist():
-    parent = Group("parent")
+    paren = Group("paren")
     child = Group("child")
     sub_child = Group("subchild")
 
@@ -69,9 +69,9 @@ def test_user_doesnt_exist():
     sub_child.add_user(sub_child_user)
 
     child.add_group(sub_child)
-    parent.add_group(child)
+    paren.add_group(child)
 
-    print(parent.is_user_in_group(child, "none existing"))
+    print(paren.is_user_in_group(child, "none existing"))
 
 
 test_user_in_sub_child()
