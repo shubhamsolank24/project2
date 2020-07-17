@@ -15,7 +15,7 @@ I have written a recursive function for this task which takes input of the suffi
 
 Run time complexitywill be : O(n^2)
 
-Space complexity will be: O(depth)
+Space complexity will be: O(files)
 
 
 
