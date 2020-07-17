@@ -13,7 +13,7 @@ Space complexity of the LRU will be : O(capacity)
 Problem 2 explaination:
 I have written a recursive function for this task which takes input of the suffix, path and the list of required files which are found till now. Each time I find a file ending with .c it will be appended to this file.
 
-Run time complexitywill be : O(depth X Avg. number of directory in each level)
+Run time complexitywill be : O(n^2)
 
 Space complexity will be: O(depth)
 
@@ -24,13 +24,15 @@ I have implemented huffman encoding technique here with following steps:
 
 i) Calculate the occurences of each characters in a string. ii) Character with highest occurence is encoded with minimum code length i.e. 1 then next Character as 01 and then 001 and so on.
 
-Time complexity is : O(n) Space complexity: O(distinct_characters)
+Time complexity is : Encode -> O((n) * log(n))
+Decode O(n)
+Space complexcity : O(n)
 
 
 Problem 4 explaination:
 Active Directory This problem in this task is being resolved using recurssion, starting from the root, checking if user is present for each group visited, if the user matches then it returns.
 
-The worst case is if the user is not present on any group and the group structure has the same subgroups on each, taking O(n!) worst case, since a stack if used for recurssion the space complexity would be O(n)
+The worst case is if the user is not present on any group and the group structure has the same subgroups on each, taking O(n!) worst case, since a stack if used for recurssion the space complexity would be O(1) and time comlexity would be O(n^2)
 
 
 Problem 5 explaination:
