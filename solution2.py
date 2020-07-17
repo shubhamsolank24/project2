@@ -1,5 +1,5 @@
 import os
-def find_files( suffix, path, files=[] ):
+def find_files(suffix, path):
     """
     Find all files beneath path with file name suffix.
     Note that a path may contain further subdirectories
@@ -11,20 +11,19 @@ def find_files( suffix, path, files=[] ):
     Returns:
        a list of paths
     """
-    temp = suffix
-    if path:
-        temp = suffix + '/' + path
-    for f in os.listdir(temp):
-        temp1 = temp +  '/' + f
-        #print(f)
-        if os.path.isfile(temp1) and temp1.endswith(".c"):
-            files.append(temp1)
-            #print(temp1)
 
-        elif os.path.isdir(temp1):
-            files = find_files(temp, f, files)
-    return files
+    list_of_paths = []
+    for item in os.listdir(path):
+      # print(os.path.join(path, item))
+      if os.path.isfile(os.path.join(path, item)): 
+        if item.endswith(suffix):
+          list_of_paths.append(os.path.join(path, item))
+        
+      else:
+        list_of_paths.extend(find_files(suffix, os.path.join(path, item)))
+    
+    return list_of_paths
+    
 
-print(find_files('.', 'testdir'))
-print(find_files('.', ''))
-print(find_files('.', 'testdir/subdir3'))
+result = find_files('.c', 'testdir')
+print(result)
