@@ -32,7 +32,7 @@ Space complexcity : O(n)
 Problem 4 explaination:
 Active Directory This problem in this task is being resolved using recurssion, starting from the root, checking if user is present for each group visited, if the user matches then it returns.
 
-The worst case is if the user is not present on any group and the group structure has the same subgroups on each, taking O(n!) worst case, since a stack if used for recurssion the space complexity would be O(1) and time comlexity would be O(n^2)
+The worst case is if the user is not present on any group and the group structure has the same subgroups on each, since a stack if used for recurssion the space complexity would be O(1) and time comlexity would be O(n^2)
 
 
 Problem 5 explaination:
