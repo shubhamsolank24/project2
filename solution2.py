@@ -1,29 +1,76 @@
 import os
-def find_files(suffix, path):
-    """
-    Find all files beneath path with file name suffix.
-    Note that a path may contain further subdirectories
-    and those subdirectories may also contain further subdirectories.
-    There are no limit to the depth of the subdirectories can be.
-    Args:
-      suffix(str): suffix if the file name to be found
-      path(str): path of the file system
-    Returns:
-       a list of paths
-    """
 
-    list_of_paths = []
-    for item in os.listdir(path):
-      # print(os.path.join(path, item))
-      if os.path.isfile(os.path.join(path, item)): 
-        if item.endswith(suffix):
-          list_of_paths.append(os.path.join(path, item))
+def getListOfFiles(dirName,extention):
+    ls=[]
+     
+    # names in the given directory 
+    listOfFile = os.listdir(dirName)# create a list of file and sub directories
+    allFiles = []#list()
+    # Iterate over all the entries
+    for entry in listOfFile:
+        # Create full path
+        fullPath = os.path.join(dirName, entry)
         
-      else:
-        list_of_paths.extend(find_files(suffix, os.path.join(path, item)))
+        if os.path.isdir(fullPath):# If entry is a directory then get the list of files in this directory
+            
+            allFiles = allFiles + getListOfFiles(fullPath,extention)
+        else:
+            allFiles.append(fullPath)
+    for i in range(len(allFiles)):    
+        if (allFiles[i].endswith(extention)):
+            ls=ls+[allFiles[i]]
+    return ls#allFiles
+        
+
+def main():
+    #test case 1
+    dirName= 'D:\Python'
+    extention= ".c"
+    ll=[]
+    if os.path.isdir(dirName):
+        ll=getListOfFiles(dirName,extention)
+        if not ll:
+            print("there is no file with such extention")
+        else:    
+            print(ll)
+    else:
+        printf("enter a valid directory")
+    #answer is-
+    #['D:\\Python\\subdir1\\a.c', 'D:\\Python\\subdir3\\subsubdir1\\b.c', 'D:\\Python\\subdir5\\a.c', 'D:\\Python\\t1.c', 'D:\\Python\\tcl\\nmake\\nmakehlp.c']    
+
     
-    return list_of_paths
+    #test case 2
+    dirName= 'D:\Python'
+    extention= ".abc"
+    ll=[]
+    if os.path.isdir(dirName):
+        ll=getListOfFiles(dirName,extention)
+        if not ll:
+            print("there is no file with such extention")
+        else:
+            print(ll)
+    else:
+        printf("enter a valid directory")
+    #answer
+    #there is no file with such extention
     
 
-result = find_files('.c', 'testdir')
-print(result)
+    #test case 3
+    dirName= 'F:\Python'
+    extention= ".c"
+    ll=[]
+    if os.path.isdir(dirName):
+        ll = getListOfFiles(dirName,extention)
+        if not ll:
+            print("there is no file with such extention")
+        else:
+            print(ll)
+    else:
+        print("enter a valid directory")
+    #answer
+    #enter a valid directory
+        
+    
+    return
+if __name__ == '__main__':
+    main()
